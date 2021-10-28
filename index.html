@@ -9,7 +9,21 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="search-bar">
+        <div>
+        <select name="select" id="episodeDropDown" onchange="location = this.value;">
+        </select>
+          </select>
+        </div>
+        <form method="GET" action="">
+          <label for="search"></label>
+          <input type="text" id="search" name="search" value="" />
+        </form>
+        <p id="search-result-text"></p>
+      </div>
+      <div id="grid-container"></div>
+    </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
