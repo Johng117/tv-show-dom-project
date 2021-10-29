@@ -6,7 +6,6 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 
   let allSeasons = episodeList;
   const gridField = document.getElementById("grid-container");
@@ -15,7 +14,7 @@ function makePageForEpisodes(episodeList) {
 
   function episode(obj) {
     let episodeCard = document.createElement("article");
-    episodeCard.className="article"
+    episodeCard.className = "article";
     episodeCard.id = obj.id;
     // create container for title name and episode/series number
     const titleBox = document.createElement("div");
@@ -30,13 +29,15 @@ function makePageForEpisodes(episodeList) {
     const episodeText = document.createElement("div");
     episodeText.id = "textBox";
     // format episode summary text
-    const innerText = obj.summary.split("").slice(3, -4).join("");
+    const innerText = obj.summary.slice(3, -4);
     episodeText.innerHTML = innerText;
     // create an option element to add to the select form
     const opt = document.createElement("option");
     opt.value = `#${obj.id}`;
     opt.href = opt.value;
-    opt.text = `S0${obj.season}${(obj.number<10 ? "0": "")+obj.number} - ${obj.name}`;
+    opt.text = `S0${obj.season}${(obj.number < 10 ? "0" : "") + obj.number} - ${
+      obj.name
+    }`;
     // append the created elements to the episodeCard element
     episodeCard.appendChild(titleBox);
     episodeCard.appendChild(episodeImage);
@@ -49,7 +50,7 @@ function makePageForEpisodes(episodeList) {
   allSeasons.forEach((element) => {
     gridField.appendChild(episode(element));
   });
-  // get the search and search-result elements and set the default unsearched text content
+  // get the search and search-result elements and set the default un-searched text content
   const inputEl = document.getElementById("search");
   const searchResult = document.getElementById("search-result-text");
   searchResult.textContent = "Displaying 73/73 episodes";
@@ -57,9 +58,10 @@ function makePageForEpisodes(episodeList) {
   function episodeFilter(event) {
     // clear the screen ready for the search
     gridField.innerHTML = " ";
+    console.log(event.key);
     // get the value of text box element
     let inputted = inputEl.value;
-    // add the inputted text to the element value using concatenation
+    // add the inputted text to the element value
     if (event.key !== "Backspace") {
       inputted = inputted + event.key;
     } else if (event.key === "Backspace" && inputted.length > 0) {
@@ -78,5 +80,10 @@ function makePageForEpisodes(episodeList) {
   }
   // keypress event that calls the episodeFilter function
   inputEl.addEventListener("keydown", episodeFilter);
+
+  const goToEpisode = document.getElementById("episodeDropDown")
+  goToEpisode.addEventListener("change", function() {
+    location = this.value;
+  })
 }
 window.onload = setup;

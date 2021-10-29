@@ -6,19 +6,25 @@
     <title>TV Show Project | John Gorman (Johng117)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <div id="root">
+      <div id="titleText">
+        <h1>Game Of Thrones Episode Guide</h1>
+      </div>
       <div id="search-bar">
         <div>
-        <select name="select" id="episodeDropDown" onchange="location = this.value;">
+        <select name="select" id="episodeDropDown">
         </select>
           </select>
         </div>
         <form method="GET" action="">
           <label for="search"></label>
-          <input type="text" id="search" name="search" value="" />
+          <input type="text" id="search" name="search" value="" placeholder="Search"/>
         </form>
         <p id="search-result-text"></p>
       </div>
