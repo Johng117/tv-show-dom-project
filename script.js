@@ -80,10 +80,10 @@ function makePageForEpisodes(episodeList) {
   }
   // keypress event that calls the episodeFilter function
   inputEl.addEventListener("keydown", episodeFilter);
-
-  const goToEpisode = document.getElementById("episodeDropDown")
-  goToEpisode.addEventListener("change", function() {
+  // added change event for the select box
+  const goToEpisode = document.getElementById("episodeDropDown");
+  goToEpisode.addEventListener("change", function () {
     location = this.value;
-  })
+  });
 }
 window.onload = setup;
