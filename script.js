@@ -1,89 +1,176 @@
-//You can edit ALL of the code here
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+const cardField = document.getElementById("card-container");
+const showList = getAllShows();
+const selectBox = document.getElementById("episodeDropDown");
+const goToEpisode = document.getElementById("episodeDropDown");
+let inputEl = document.getElementById("search");
+const oneEp = getOneEpisode();
+
+// function that takes a show ID number and fetches the episodes for that show
+
+// function episodesGetter(showId) {
+//   const apiEndpoint = `https://api.tvmaze.com/shows/${showId}/episodes`;
+//   fetch(apiEndpoint)
+//     .then((response) => {
+//       if (response.status === 200 || response.status === 404) {
+//         console.log(response);
+//         return response.json();
+//       }
+//       throw `${response.status} ${response.statusText}`;
+//     })
+//     .then((episodes) => {
+//       makePageForEpisodes(episodes);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
+
+// function to create individual cards
+
+function episode(obj) {
+  let episodeCard = document.createElement("article");
+  episodeCard.className = "article";
+  episodeCard.id = obj.id;
+  // create container for title name and episode/series number
+
+  const titleBox = document.createElement("div");
+  titleBox.id = "titleBox";
+  titleBox.innerHTML = `${obj.name} - S0${obj.season}0${obj.number}`;
+  // create image element
+  const episodeImage = document.createElement("img");
+  episodeImage.src = `${obj.image["medium"]}`;
+  episodeImage.id = "imageBox";
+  // create text box element
+  const episodeText = document.createElement("div");
+  episodeText.id = "textBox";
+  // format episode summary text
+  const innerText = obj.summary.slice(3, -4);
+  episodeText.innerHTML = innerText;
+  optionCreator(obj);
+  let titleImageBox = document.createElement("div");
+  titleImageBox.id = "title-img-box";
+  titleImageBox.appendChild(titleBox);
+  titleImageBox.appendChild(episodeImage);
+  episodeCard.appendChild(titleImageBox);
+  episodeCard.appendChild(episodeText);
+  return episodeCard;
 }
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+// function one(obj) {
 
-  let allSeasons = episodeList;
-  const gridField = document.getElementById("grid-container");
-  const selectBox = document.getElementById("episodeDropDown");
-  // created a function to take an object of the episodes array
+//   let epi = obj;
+//   cardField.appendChild(episode(epi));
+//   const numberOfEpisodes = document.getElementById("episode-number-text");
+//   numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/73 episodes`;
+// }
 
-  function episode(obj) {
-    let episodeCard = document.createElement("article");
-    episodeCard.className = "article";
-    episodeCard.id = obj.id;
-    // create container for title name and episode/series number
-    const titleBox = document.createElement("div");
-    titleBox.id = "titleBox";
-    titleBox.innerHTML = `${obj.name} - S0${obj.season}0${obj.number}`;
+// one(oneEp);
 
-    // create image element
-    const episodeImage = document.createElement("img");
-    episodeImage.src = `${obj.image["medium"]}`;
-    episodeImage.id = "imageBox";
-    // create text box element
-    const episodeText = document.createElement("div");
-    episodeText.id = "textBox";
-    // format episode summary text
-    const innerText = obj.summary.slice(3, -4);
-    episodeText.innerHTML = innerText;
-    // create an option element to add to the select form
-    const opt = document.createElement("option");
-    opt.value = `#${obj.id}`;
-    opt.href = opt.value;
-    opt.text = `S0${obj.season}${(obj.number < 10 ? "0" : "") + obj.number} - ${
-      obj.name
-    }`;
-    // append the created elements to the episodeCard element
-    episodeCard.appendChild(titleBox);
-    episodeCard.appendChild(episodeImage);
-    episodeCard.appendChild(episodeText);
-    // adding an option to the select box for each episode
-    selectBox.appendChild(opt);
-    return episodeCard;
-  }
-  // display all the episodes on the screen
-  allSeasons.forEach((element) => {
-    gridField.appendChild(episode(element));
+function optionCreator(obj) {
+  const opt = document.createElement("option");
+  opt.value = obj.name;
+  opt.text = `S0${obj.season}${(obj.number < 10 ? "0" : "") + obj.number} - ${
+    obj.name
+  }`;
+  selectBox.appendChild(opt);
+}
+
+// function that adds the names of the shows to the relevant select box
+
+function shows() {
+  showList.forEach((show) => {
+    let showSelector = document.getElementById("show-select");
+    let showName = document.createElement("option");
+    showName.text = show.name;
+    showName.value = show.id;
+    showSelector.appendChild(showName);
   });
-  // get the search and search-result elements and set the default un-searched text content
-  const inputEl = document.getElementById("search");
-  const searchResult = document.getElementById("search-result-text");
-  searchResult.textContent = "Displaying 73/73 episodes";
+}
 
-  function episodeFilter(event) {
-    // clear the screen ready for the search
-    gridField.innerHTML = " ";
-    console.log(event.key);
-    // get the value of text box element
-    let inputted = inputEl.value;
-    // add the inputted text to the element value
-    if (event.key !== "Backspace") {
-      inputted = inputted + event.key;
-    } else if (event.key === "Backspace" && inputted.length > 0) {
-      inputted = inputted.slice(0, -1);
-    }
-    // create a regex which is equal to the text input and is case insensitive
-    const regex = new RegExp(inputted, "i");
-    // compare the regex to the episode name and summary content and add the matches to the empty container
+// }
+
+let showSelect = document.getElementById("show-select");
+showSelect.addEventListener("change", function () {
+  let optionList = document.getElementById("episodeDropDown");
+  optionList.innerHTML = " ";
+  cardField.innerHTML = " ";
+  episodesGetter(this.value);
+});
+
+function makePageForEpisodes(episodes) {
+  let allSeasons = episodes;
+  const numberOfEpisodes = document.getElementById("episode-number-text");
+
+  // console.log(allSeasons);
+  allSeasons.forEach((element) => {
+    cardField.appendChild(episode(element));
+  });
+  numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/${allSeasons.length} episodes`;
+
+  goToEpisode.addEventListener("change", function () {
+    cardField.innerHTML = " ";
     allSeasons.forEach((element) => {
-      if (regex.test(element.name) || regex.test(element.summary)) {
-        gridField.appendChild(episode(element));
+      if (element.name === this.value) {
+        cardField.appendChild(episode(element));
       }
     });
-    // display the number of episodes which the search found
-    searchResult.textContent = `Displaying ${gridField.childElementCount}/73 episodes`;
-  }
-  // keypress event that calls the episodeFilter function
-  inputEl.addEventListener("keydown", episodeFilter);
-  // added change event for the select box
-  const goToEpisode = document.getElementById("episodeDropDown");
-  goToEpisode.addEventListener("change", function () {
-    location = this.value;
+    numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/${allSeasons.length} episodes`;
+  });
+
+  inputEl.addEventListener("input", function (event) {
+    cardField.innerHTML = "";
+    let inputted = event.target.value.toLowerCase();
+    allSeasons.forEach((element) => {
+      let lowerName = element.name.toLowerCase();
+      let lowerSummary = element.summary.toLowerCase();
+      if (lowerName.includes(inputted) || lowerSummary.includes(inputted)) {
+        cardField.appendChild(episode(element));
+      }
+    });
+    numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/${allSeasons.length} episodes`;
   });
 }
+// display all the episodes on the screen
+
+// function to build a show card
+
+function showCard(obj) {
+  let tvShowCard = document.createElement("article");
+  tvShowCard.className = "tv-show-article";
+  tvShowCard.id = obj.id;
+  const showTitleBox = document.createElement("div");
+  showTitleBox.id = "showTitleBox";
+  showTitleBox.innerHTML = `${obj.name}`;
+  const showImage = document.createElement("img");
+  showImage.src = `${obj.image["medium"]}`;
+  showImage.id = "showImageBox";
+  const showSummary = document.createElement("div");
+  showSummary.id = "summaryBox";
+  const summaryText = obj.summary.slice(3, -4);
+  showSummary.innerHTML = summaryText;
+
+  tvShowCard.appendChild(showTitleBox);
+  tvShowCard.appendChild(showImage);
+  tvShowCard.appendChild(showSummary);
+  return tvShowCard;
+}
+
+// function showField() {
+//   let singleShow = getOneShow();
+//   console.log(singleShow);
+//   let showContainer = document.getElementById("show-container");
+//   showContainer.appendChild(showCard(singleShow));
+// }
+
+// showField();
+
+// get the search and search-result elements and set the default un-searched text content
+
+function setup() {
+  let defaultShow = 82;
+  shows();
+  // makePageForEpisodes(episodeList);
+  episodesGetter(defaultShow);
+}
+
 window.onload = setup;
