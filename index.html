@@ -20,6 +20,7 @@
         <h1>TV Episode Guide</h1>
         <img id="tv-image" src="tv.png" alt="an image of a television" />
       </div>
+      
       <div id="search-bar">
         <div id="selectors">
           <select name="select" class="select" id="show-select">
@@ -39,9 +40,25 @@
         </form>
         <p id="episode-number-text"></p>
       </div>
+
+      <div id="show-search-bar">
+        <p>Show search: </p>
+        <select name="select" class="select" id="series-select"></select>
+        <form method="GET" action="">
+          <label for="search">Shows: </label>
+          <input
+            type="text"
+            id="series-search"
+            name="series-search"
+            value=""
+            placeholder="Search"
+          />
+        </form>
+      </div>
+      
       <div id="card-container">
       </div>
-      <!-- <div id="show-container"></div> -->
+      <div id="show-container"></div>
     </div>
     <div class="data-link">
       <a href="https://www.tvmaze.com/" target="_blank">All show data sourced from TVMaze.com</a>
