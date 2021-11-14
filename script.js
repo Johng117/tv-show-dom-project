@@ -5,7 +5,7 @@ const showList = getAllShows();
 const selectBox = document.getElementById("episodeDropDown");
 const goToEpisode = document.getElementById("episodeDropDown");
 let inputEl = document.getElementById("search");
-// const oneEp = getOneEpisode();
+
 
 // function that takes a show ID number and fetches the episodes for that show
 
@@ -54,28 +54,17 @@ function episode(obj) {
   const innerText = obj.summary.slice(3, -4);
   episodeText.innerHTML = innerText;
   optionCreator(obj);
-
   titleImageBox.id = "title-img-box";
-
   episodeCard.appendChild(titleImageBox);
   episodeCard.appendChild(episodeText);
   return episodeCard;
 }
 
-// function one(obj) {
 
-//   let epi = obj;
-//   cardField.appendChild(episode(epi));
-//   const numberOfEpisodes = document.getElementById("episode-number-text");
-//   numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/73 episodes`;
-// }
-
-// one(oneEp);
 
 function optionCreator(obj) {
   const opt = document.createElement("option");
   opt.value = obj.name;
-  // console.log(opt.value);
   opt.text = `S0${obj.season}${(obj.number < 10 ? "0" : "") + obj.number} - ${
     obj.name
   }`;
@@ -86,7 +75,6 @@ function optionSelectReset() {
   const opt = document.createElement("option");
   opt.value = "All Shows";
   opt.text = "All Shows";
-  // opt.setAttribute("selected", true);
   return opt;
 }
 
@@ -114,7 +102,7 @@ function shows() {
     });
 }
 
-// }
+
 
 let showSelect = document.getElementById("show-select");
 showSelect.addEventListener("change", function () {
@@ -123,6 +111,9 @@ showSelect.addEventListener("change", function () {
   cardField.innerHTML = " ";
   episodesGetter(this.value);
 });
+
+
+// function that displays the episodes for the chosen show
 
 function makePageForEpisodes(episodes) {
   let allSeasons = episodes;
@@ -155,7 +146,6 @@ function makePageForEpisodes(episodes) {
     numberOfEpisodes.textContent = `Displaying ${cardField.children.length}/${allSeasons.length} episodes`;
   });
 }
-// display all the episodes on the screen
 
 // function to build a show card
 
@@ -203,12 +193,12 @@ function showCard(obj) {
   // imageSummaryBox.appendChild(showImage);
   imageSummaryBox.appendChild(showSummary);
   imageSummaryBox.appendChild(infoContainer);
-
   tvShowCard.appendChild(showTitleBox);
   tvShowCard.appendChild(imageSummaryBox);
-
   return tvShowCard;
 }
+
+// a function that adds an option for each show to the select box 
 
 function showOptions(obj) {
   const showOption = document.createElement("option");
