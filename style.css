@@ -1,3 +1,245 @@
+body {
+  background-color: #1d1d2c;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 #root {
-  color: red;
+  color: #e40c2b;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 90%;
+  background-color: #f7f4e9;
+  border-radius: 20px;
+  border: 2px solid #f7f4e9;
+}
+
+/* heading and icon styles */
+
+#titleText {
+  padding-left: 1rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-family: "Lobster", cursive;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  margin-bottom: 0rem;
+}
+
+img {
+  margin-top: 1.7rem;
+  margin-left: 0.5rem;
+  height: 2.5rem;
+}
+
+/* css for show search bar */
+
+#show-search-bar {
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* css for episode search bar */
+
+#search-bar {
+  height: 8rem;
+  display: none;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+#selectors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+select {
+  appearance: none;
+  width: 230px;
+  background-color: transparent;
+  border-radius: 0.25rem;
+  height: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1d1d2c;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#search {
+  background-color: transparent;
+  border-radius: 0.25rem;
+  border: 0.5px solid grey;
+  padding-left: 0.5rem;
+  display: flex;
+}
+
+#episode-number-text {
+  margin: 0.5rem auto;
+  font-weight: bolder;
+}
+
+/* card container and card styling */
+
+#card-container {
+  background-color: #1d1d2c;
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.article {
+  border-radius: 1rem;
+  display: flex;
+  width: 45%;
+  min-width: 330px;
+  min-height: 300px;
+  border: 2px solid grey;
+  align-items: center;
+}
+
+#titleBox {
+  font-weight: 900;
+  border-radius: 1rem;
+  text-align: center;
+  padding: 0.5rem 0.5rem 0rem 0.5rem;
+  margin: 2rem;
+}
+
+#title-img-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
+  height: 100%;
+}
+
+#imageBox {
+  align-self: center;
+  width: 90%;
+  height: auto;
+  margin: 0;
+}
+
+#textBox {
+  line-height: 1.2rem;
+  font-size: 0.8rem;
+  padding: 5rem 1rem 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
+  height: 100%;
+  color: grey;
+}
+
+/* styles for show container and show cards within */
+
+
+#show-container {
+  width: 100%;
+  height: auto;
+  gap: 1rem;
+  background-color: #f7f4e9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.tv-show-article {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  min-height: 250px;
+  border-radius: 20px;
+  background: #1d1d2c;
+}
+
+#showTitleBox {
+  height: 15%;
+  width: 100%;
+  font-size: 2rem;
+  padding-left: 2rem;
+  padding-top: 0.5rem;
+}
+
+button {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #e40c2b;
+  background: transparent;
+  cursor: pointer;
+}
+
+.image-summary {
+  display: flex;
+  justify-content: space-evenly;
+  height: auto;
+}
+
+.image-summary p {
+  font-size: 13px;
+}
+
+#showImageBox {
+  height: auto;
+  max-height: 168px;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+#summaryBox {
+  width: 70%;
+  font-size: 14px;
+  margin-top: 2.5rem;
+  padding: 0 1rem 1rem 1rem;
+  color: gray;
+  height: auto;
+}
+
+.info-container {
+  padding-left: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.data-link {
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+  color: #e40c2b;
+}
+
+@media only screen and (min-width: 900px) {
+  #selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  select {
+    margin: 0rem 0.5rem 0rem 0.5rem;
+  }
+
+  #search-bar {
+    justify-content: space-evenly;
+  }
 }
